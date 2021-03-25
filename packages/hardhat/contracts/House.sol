@@ -6,8 +6,17 @@ import "./Property.sol";
 
 contract House is Property {
 
-  constructor() {
-    
+  //events
+
+  //attributes
+
+  constructor(
+    string memory _mailingAddress,
+    string memory _zipcode
+  ) 
+    Property(_mailingAddress, _zipcode) 
+  {
+    console.log("got a house on chain, pretty sick tbh");
   }
 
 }

@@ -5,8 +5,9 @@ import "hardhat/console.sol";
 
 contract Apartment {
 
-  //events, what can happen to a rental unit
+  //events, what can happen to an apartment
 
+  //attributes
 
   constructor () {
 

@@ -16,11 +16,15 @@ abstract contract Property {
   event VerificationApproved(address sender);
   event VerificationRejected(address sender);
 
-  VerficationStatus verificationStatus = VerificationStatus.AwaitingDocumentation;
+  //attributes
+  VerificationStatus verificationStatus = VerificationStatus.AwaitingDocumentation;
+  string mailingAddress;
+  string zipcode;
 
-  // constructor () {
-
-  // }
+  constructor (string memory _mailingAddress, string memory _zipcode) {
+    mailingAddress = _mailingAddress;
+    zipcode = _zipcode;
+  }
 
   //functions
 

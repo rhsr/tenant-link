@@ -8,8 +8,10 @@ contract PropertyFactory {
 
   enum PropertyType { ApartmentBuilding, House }
 
+  //events
   event PropertyCreated(address sender, string purpose);
 
+  //attributes
   Property[] properties;
 
   function createProperty(PropertyType propertyType) 
@@ -17,7 +19,7 @@ contract PropertyFactory {
     propertyOwnershipVerified() 
   {
     if (propertyType == PropertyType.ApartmentBuilding) {
-      console.log("Its an apt bro");
+      console.log("Its an apt building bro");
     } else if (propertyType == PropertyType.House) {
       console.log("Its a house bro");
     } else {
