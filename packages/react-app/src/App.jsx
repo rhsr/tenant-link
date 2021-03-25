@@ -39,7 +39,7 @@ import { INFURA_ID, DAI_ADDRESS, DAI_ABI, NETWORK, NETWORKS } from "./constants"
 const targetNetwork = NETWORKS['localhost']; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
 
 // 😬 Sorry for all the console logging
-const DEBUG = true
+const DEBUG = false;
 
 
 
@@ -240,15 +240,15 @@ function App(props) {
             />
 
 
-            { /* uncomment for a second contract:
+            { 
             <Contract
-              name="SecondContract"
+              name="PropertyFactory"
               signer={userProvider.getSigner()}
               provider={localProvider}
               address={address}
               blockExplorer={blockExplorer}
             />
-            */ }
+             }
 
             { /* Uncomment to display and interact with an external contract (DAI on mainnet):
             <Contract
