@@ -9,4 +9,8 @@ contract ApartmentBuilding is Property {
 
   Apartment[] apartments;
 
+  constructor() {
+    
+  }
+
 }

@@ -6,4 +6,8 @@ import "./Property.sol";
 
 contract House is Property {
 
+  constructor() {
+    
+  }
+
 }

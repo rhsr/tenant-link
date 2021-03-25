@@ -9,9 +9,6 @@ contract PropertyFactory {
   enum PropertyType { ApartmentBuilding, House }
 
   event PropertyCreated(address sender, string purpose);
-  event PropertyVerificationSubmitted(address sender);
-  event PropertyVerificationApproved(address sender);
-  event PropertyVerificationRejected(address sender);
 
   Property[] properties;
 

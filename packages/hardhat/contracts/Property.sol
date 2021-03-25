@@ -9,8 +9,15 @@ import "hardhat/console.sol";
 
 abstract contract Property {
 
+  enum VerificationStatus { AwaitingDocumentation, Pending, Approved, Rejected }
+
   //events, what can happen to a property
-  
+  event VerificationSubmitted(address sender);
+  event VerificationApproved(address sender);
+  event VerificationRejected(address sender);
+
+  VerficationStatus verificationStatus = VerificationStatus.AwaitingDocumentation;
+
   // constructor () {
 
   // }
