@@ -3,7 +3,7 @@ pragma solidity >=0.6.0 <0.9.0;
 
 import "hardhat/console.sol";
 
-contract RentalUnit {
+contract Apartment {
 
   //events, what can happen to a rental unit
 

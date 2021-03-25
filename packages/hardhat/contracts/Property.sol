@@ -10,31 +10,11 @@ import "hardhat/console.sol";
 abstract contract Property {
 
   //events, what can happen to a property
+  
+  // constructor () {
 
-
-  constructor () {
-
-  }
+  // }
 
   //functions
-
-}
-
-contract House is Property {
-
-}
-
-//may not need this second level of House hierarchy
-//we can always consolidate when we understand the biz logic diff if any exists
-
-contract SingleFamilyHouse is House {
-
-}
-
-contract MultiFamilyHouse is House {
-
-}
-
-contract ApartmentBuilding is Property {
 
 }
