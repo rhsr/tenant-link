@@ -6,27 +6,22 @@ import "./Property.sol";
 
 contract PropertyFactory {
 
-  enum PropertyType { ApartmentBuilding, House }
-
   //events
   event PropertyCreated(address sender, string purpose);
 
   //attributes
   Property[] properties;
 
-  function createProperty(PropertyType propertyType) 
+  function createProperty(
+    string calldata mailingAddress,
+    string calldata zipcode
+  ) 
     public 
     propertyOwnershipVerified() 
   {
-    if (propertyType == PropertyType.ApartmentBuilding) {
-      console.log("Its an apt building bro");
-    } else if (propertyType == PropertyType.House) {
-      console.log("Its a house bro");
-    } else {
-      console.log("wtf is it dawg idek");
-    }
-    ///do some stuff
-    // properties.push(newProperty);
+    console.log("Property gang");
+    Property p = new Property(mailingAddress, zipcode);
+    properties.push(p);
   }
 
   modifier propertyOwnershipVerified() {
