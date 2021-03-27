@@ -29,5 +29,13 @@ contract Property {
   }
 
   //functions
+  function addDwelling(
+    uint sqft
+  ) 
+    public
+  {
+    Dwelling memory _dwelling = Dwelling(sqft);
+    dwellings.push(_dwelling);
+  }
 
 }
