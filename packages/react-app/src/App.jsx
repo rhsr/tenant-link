@@ -122,11 +122,6 @@ function App(props) {
   const myMainnetDAIBalance = useContractReader({DAI: mainnetDAIContract},"DAI", "balanceOf",["0x34aA3F359A9D614239015126635CE7732c18fDF3"])
   console.log("🥇 myMainnetDAIBalance:",myMainnetDAIBalance)
 
-
-  // keep track of a variable from the contract in the local React state:
-  const purpose = useContractReader(readContracts,"YourContract", "purpose")
-  console.log("🤗 purpose:",purpose)
-
   //📟 Listen for broadcast events
   const setPurposeEvents = useEventListener(readContracts, "YourContract", "SetPurpose", localProvider, 1);
   console.log("📟 SetPurpose events:",setPurposeEvents)
@@ -207,17 +202,17 @@ function App(props) {
 
         <Menu style={{ textAlign:"center" }} selectedKeys={[route]} mode="horizontal">
           <Menu.Item key="/">
-            <Link onClick={()=>{setRoute("/")}} to="/">YourContract</Link>
+            <Link onClick={()=>{setRoute("/")}} to="/">PropertyFactory</Link>
+          </Menu.Item>
+          <Menu.Item key="/properties">
+            <Link onClick={()=>{setRoute("/properties")}} to="/properties">Properties</Link>
           </Menu.Item>
           <Menu.Item key="/hints">
             <Link onClick={()=>{setRoute("/hints")}} to="/hints">Hints</Link>
           </Menu.Item>
-          <Menu.Item key="/exampleui">
+          {/* <Menu.Item key="/exampleui">
             <Link onClick={()=>{setRoute("/exampleui")}} to="/exampleui">ExampleUI</Link>
-          </Menu.Item>
-          <Menu.Item key="/mainnetdai">
-            <Link onClick={()=>{setRoute("/mainnetdai")}} to="/mainnetdai">Mainnet DAI</Link>
-          </Menu.Item>
+          </Menu.Item> */}
           <Menu.Item key="/subgraph">
             <Link onClick={()=>{setRoute("/subgraph")}} to="/subgraph">Subgraph</Link>
           </Menu.Item>
@@ -225,22 +220,6 @@ function App(props) {
 
         <Switch>
           <Route exact path="/">
-            {/*
-                🎛 this scaffolding is full of commonly used components
-                this <Contract/> component will automatically parse your ABI
-                and give you a form to interact with it locally
-            */}
-
-            <Contract
-              name="YourContract"
-              signer={userProvider.getSigner()}
-              provider={localProvider}
-              address={address}
-              blockExplorer={blockExplorer}
-            />
-
-
-            { 
             <Contract
               name="PropertyFactory"
               signer={userProvider.getSigner()}
@@ -248,7 +227,6 @@ function App(props) {
               address={address}
               blockExplorer={blockExplorer}
             />
-             }
 
             { /* Uncomment to display and interact with an external contract (DAI on mainnet):
             <Contract
@@ -267,31 +245,6 @@ function App(props) {
               yourLocalBalance={yourLocalBalance}
               mainnetProvider={mainnetProvider}
               price={price}
-            />
-          </Route>
-          <Route path="/exampleui">
-            <ExampleUI
-              address={address}
-              userProvider={userProvider}
-              mainnetProvider={mainnetProvider}
-              localProvider={localProvider}
-              yourLocalBalance={yourLocalBalance}
-              price={price}
-              tx={tx}
-              writeContracts={writeContracts}
-              readContracts={readContracts}
-              purpose={purpose}
-              setPurposeEvents={setPurposeEvents}
-            />
-          </Route>
-          <Route path="/mainnetdai">
-            <Contract
-              name="DAI"
-              customContract={mainnetDAIContract}
-              signer={userProvider.getSigner()}
-              provider={mainnetProvider}
-              address={address}
-              blockExplorer={"https://etherscan.io/"}
             />
           </Route>
           <Route path="/subgraph">

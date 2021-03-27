@@ -1,1 +1,1 @@
-module.exports = ["PropertyFactory","YourContract"];
+module.exports = ["PropertyFactory"];
