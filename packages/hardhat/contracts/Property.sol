@@ -13,6 +13,7 @@ contract Property {
   enum VerificationStatus { AwaitingDocumentation, Pending, Approved, Rejected }
 
   //events, what can happen to a property
+  event DwellingAdded(uint dwellingId);
   event VerificationSubmitted(address sender);
   event VerificationApproved(address sender);
   event VerificationRejected(address sender);
@@ -21,7 +22,10 @@ contract Property {
   VerificationStatus verificationStatus = VerificationStatus.AwaitingDocumentation;
   string mailingAddress;
   string zipcode;
-  Dwelling[] dwellings;
+
+  //should research mem implications of a uint vs specifying the smallest one possible for the use case
+  uint numDwellings;
+  mapping (uint => Dwelling) dwellings;
 
   constructor (string memory _mailingAddress, string memory _zipcode) {
     mailingAddress = _mailingAddress;
@@ -33,9 +37,12 @@ contract Property {
     uint sqft
   ) 
     public
+    returns (uint dwellingId)
   {
-    Dwelling memory _dwelling = Dwelling(sqft);
-    dwellings.push(_dwelling);
+    dwellingId = numDwellings++;
+    Dwelling storage d = dwellings[dwellingId];
+    d.sqft = sqft;
+    emit DwellingCreated(dwellingId);
   }
 
 }
