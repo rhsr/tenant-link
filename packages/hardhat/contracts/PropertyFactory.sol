@@ -13,14 +13,19 @@ contract PropertyFactory {
   Property[] properties;
 
   function createProperty(
-    string calldata mailingAddress,
+    string calldata name,
+    uint noFloors,
+    bool hasBackyard,
+    bool hasElevator,
+    string calldata streetAddress,
+    string calldata city,
     string calldata zipcode
   ) 
     public 
     propertyOwnershipVerified() 
   {
     console.log("Property gang");
-    Property p = new Property(mailingAddress, zipcode);
+    Property p = new Property(name, noFloors, hasBackyard, hasElevator, streetAddress, city, zipcode);
     properties.push(p);
   }
 
