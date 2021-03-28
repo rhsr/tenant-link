@@ -20,7 +20,12 @@ contract Property {
 
   //attributes
   VerificationStatus verificationStatus = VerificationStatus.AwaitingDocumentation;
-  string mailingAddress;
+  string name;
+  uint noFloors;
+  bool hasBackyard;
+  bool hasElevator;
+  string streetAddress;
+  string city;
   string zipcode;
 
   //should research mem implications of a uint vs specifying the smallest one possible for the use case
@@ -28,22 +33,43 @@ contract Property {
   uint numDwellings;
   mapping (uint => Dwelling) dwellings;
 
-  constructor (string memory _mailingAddress, string memory _zipcode) {
-    mailingAddress = _mailingAddress;
+  constructor (
+    string memory _name,
+    uint _noFloors,
+    bool _hasBackyard,
+    bool _hasElevator,
+    string memory _streetAddress,
+    string memory _city, 
+    string memory _zipcode
+  ) {
+    name = _name;
+    noFloors = _noFloors;
+    hasBackyard = _hasBackyard;
+    hasElevator = _hasElevator;
+    streetAddress = _streetAddress;
+    city = _city;
     zipcode = _zipcode;
   }
 
   //functions
   function addDwelling(
-    uint sqft
+    uint squareFeet,
+    string calldata identifier,
+    uint numBedrooms,
+    uint numBathrooms,
+    bool petsAllowed
   ) 
     public
     returns (uint dwellingId)
   {
     dwellingId = numDwellings++;
     Dwelling storage d = dwellings[dwellingId];
-    d.sqft = sqft;
-    emit DwellingCreated(dwellingId);
+    d.squareFeet = squareFeet;
+    d.identifier = identifier;
+    d.numBedrooms = numBedrooms;
+    d.numBathrooms = numBathrooms;
+    d.petsAllowed = petsAllowed;
+    emit DwellingAdded(dwellingId);
   }
 
 }
