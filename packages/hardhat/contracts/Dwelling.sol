@@ -2,9 +2,9 @@ pragma solidity >=0.6.0 <0.9.0;
 // SPDX-License-Identifier: MIT
 
 struct Dwelling {
-  uint squareFeet;
+  int16 squareFeet;
   string identifier; //4A, 4, N, etc
-  uint numBedrooms;
-  uint numBathrooms;
+  int8 numBedrooms;
+  int8 numBathrooms;
   bool petsAllowed;
 }

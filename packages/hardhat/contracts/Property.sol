@@ -4,10 +4,6 @@ pragma solidity >=0.6.0 <0.9.0;
 import "hardhat/console.sol";
 import "./Dwelling.sol";
 
-//should this be an interface instead? 
-//https://docs.soliditylang.org/en/v0.8.3/contracts.html#abstract-contracts 
-//https://docs.soliditylang.org/en/v0.8.3/contracts.html#interfaces
-
 contract Property {
 
   enum VerificationStatus { AwaitingDocumentation, Pending, Approved, Rejected }
@@ -21,7 +17,7 @@ contract Property {
   //attributes
   VerificationStatus verificationStatus = VerificationStatus.AwaitingDocumentation;
   string name;
-  uint noFloors;
+  int8 noFloors;
   bool hasBackyard;
   bool hasElevator;
   string streetAddress;
@@ -35,7 +31,7 @@ contract Property {
 
   constructor (
     string memory _name,
-    uint _noFloors,
+    int8 _noFloors,
     bool _hasBackyard,
     bool _hasElevator,
     string memory _streetAddress,
@@ -53,10 +49,10 @@ contract Property {
 
   //functions
   function addDwelling(
-    uint squareFeet,
+    int16 squareFeet,
     string calldata identifier,
-    uint numBedrooms,
-    uint numBathrooms,
+    int8 numBedrooms,
+    int8 numBathrooms,
     bool petsAllowed
   ) 
     public

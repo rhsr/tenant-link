@@ -1,15 +1,19 @@
-type Purpose @entity {
+type Property @entity {
   id: ID!
-  sender: Sender!
-  purpose: String!
-  createdAt: BigInt!
-  transactionHash: String!
+  propertyOwner: PropertyOwner!
+  name: String!
+  dwellings: [Dwelling!] @derivedFrom(field: "parentProperty")
 }
 
-type Sender @entity {
+type PropertyOwner @entity {
   id: ID!
   address: Bytes!
-  purposes: [Purpose!] @derivedFrom(field: "sender")
+  properties: [Property!] @derivedFrom(field: "propertyOwner")
   createdAt: BigInt!
-  purposeCount: BigInt!
+  propertyCount: BigInt!
+}
+
+type Dwelling @entity {
+  id: ID!
+  parentProperty: Property!
 }
