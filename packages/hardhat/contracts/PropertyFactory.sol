@@ -7,14 +7,14 @@ import "./Property.sol";
 contract PropertyFactory {
 
   //events
-  event PropertyCreated(address sender, string purpose);
+  event PropertyCreated(address sender, string name);
 
   //attributes
   Property[] properties;
 
   function createProperty(
     string calldata name,
-    uint noFloors,
+    int8 noFloors,
     bool hasBackyard,
     bool hasElevator,
     string calldata streetAddress,
@@ -24,9 +24,9 @@ contract PropertyFactory {
     public 
     propertyOwnershipVerified() 
   {
-    console.log("Property gang");
     Property p = new Property(name, noFloors, hasBackyard, hasElevator, streetAddress, city, zipcode);
     properties.push(p);
+    emit PropertyCreated(msg.sender, name);
   }
 
   modifier propertyOwnershipVerified() {
