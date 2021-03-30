@@ -1,45 +1,42 @@
 pragma solidity >=0.6.0 <0.9.0;
 // SPDX-License-Identifier: MIT
 
-import "hardhat/console.sol";
-import "./Dwelling.sol";
+import 'hardhat/console.sol';
+import './Dwelling.sol';
 
 contract Property {
-
   enum VerificationStatus { AwaitingDocumentation, Pending, Approved, Rejected }
 
   //events, what can happen to a property
-  event DwellingAdded(uint dwellingId);
+  event DwellingAdded(uint16 dwellingId);
   event VerificationSubmitted(address sender);
   event VerificationApproved(address sender);
   event VerificationRejected(address sender);
 
-  //attributes
-  VerificationStatus verificationStatus = VerificationStatus.AwaitingDocumentation;
-  string name;
-  int8 noFloors;
+  uint8 numFloors;
   bool hasBackyard;
   bool hasElevator;
+  string name;
   string streetAddress;
   string city;
   string zipcode;
 
   //should research mem implications of a uint vs specifying the smallest one possible for the use case
   //https://docs.soliditylang.org/en/v0.8.3/types.html#structs
-  uint numDwellings;
-  mapping (uint => Dwelling) dwellings;
+  uint16 numDwellings;
+  mapping(uint16 => Dwelling) dwellings;
 
-  constructor (
+  constructor(
     string memory _name,
-    int8 _noFloors,
+    uint8 _numFloors,
     bool _hasBackyard,
     bool _hasElevator,
     string memory _streetAddress,
-    string memory _city, 
+    string memory _city,
     string memory _zipcode
   ) {
     name = _name;
-    noFloors = _noFloors;
+    numFloors = _numFloors;
     hasBackyard = _hasBackyard;
     hasElevator = _hasElevator;
     streetAddress = _streetAddress;
@@ -49,23 +46,19 @@ contract Property {
 
   //functions
   function addDwelling(
-    int16 squareFeet,
+    uint16 squareFeet,
     string calldata identifier,
-    int8 numBedrooms,
-    int8 numBathrooms,
+    uint8 numBedrooms,
+    uint8 numBathrooms,
     bool petsAllowed
-  ) 
-    public
-    returns (uint dwellingId)
-  {
+  ) public returns (uint16 dwellingId) {
     dwellingId = numDwellings++;
     Dwelling storage d = dwellings[dwellingId];
-    d.squareFeet = squareFeet;
     d.identifier = identifier;
-    d.numBedrooms = numBedrooms;
-    d.numBathrooms = numBathrooms;
-    d.petsAllowed = petsAllowed;
+    d.attributes.squareFeet = squareFeet;
+    d.attributes.numBedrooms = numBedrooms;
+    d.attributes.numBathrooms = numBathrooms;
+    d.amenities.petsAllowed = petsAllowed;
     emit DwellingAdded(dwellingId);
   }
-
 }
