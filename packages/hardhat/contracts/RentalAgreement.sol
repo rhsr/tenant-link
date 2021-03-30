@@ -15,8 +15,8 @@ contract RentalAgreement {
   address payable landlord;
   address payable tenant;
 
-  int8 gracePeriodDays;
-  int16 rentUsd;
-  int16 lateFeeUsd;
-  int16 depositUsd;
+  uint8 gracePeriodDays;
+  uint16 rentUsd;
+  uint16 lateFeeUsd;
+  uint16 depositUsd;
 }
