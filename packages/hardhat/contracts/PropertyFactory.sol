@@ -13,7 +13,7 @@ contract PropertyFactory {
 
   function createProperty(
     string calldata name,
-    int8 noFloors,
+    uint8 noFloors,
     bool hasBackyard,
     bool hasElevator,
     string calldata streetAddress,
@@ -28,5 +28,6 @@ contract PropertyFactory {
 
   modifier propertyOwnershipVerified() {
     require(true, 'Sender not authorized.');
+    _;
   }
 }

@@ -9,9 +9,9 @@ struct Dwelling {
 }
 
 struct DwellingAttributes {
-  int16 squareFeet;
-  int8 numBedrooms;
-  int8 numBathrooms;
+  uint16 squareFeet;
+  uint8 numBedrooms;
+  uint8 numBathrooms;
   string heatingType;
   string coolingType;
 }
