@@ -5,6 +5,7 @@ export { default as AddressInput } from "./AddressInput";
 export { default as EtherInput } from "./EtherInput";
 export { default as Balance } from "./Balance";
 export { default as TokenBalance } from "./TokenBalance";
+export { default as Property } from "./Property";
 export { default as Provider } from "./Provider";
 export { default as Ramp } from "./Ramp";
 export { default as Faucet } from "./Faucet";

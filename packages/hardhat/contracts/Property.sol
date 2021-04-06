@@ -21,8 +21,6 @@ contract Property {
   string city;
   string zipcode;
 
-  //should research mem implications of a uint vs specifying the smallest one possible for the use case
-  //https://docs.soliditylang.org/en/v0.8.3/types.html#structs
   uint16 numDwellings;
   mapping(uint16 => Dwelling) dwellings;
 

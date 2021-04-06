@@ -12,7 +12,7 @@ import { Header, Account, Faucet, Ramp, Contract, GasGauge, ThemeSwitch } from "
 import { Transactor } from "./helpers";
 import { formatEther, parseEther } from "@ethersproject/units";
 //import Hints from "./Hints";
-import { Hints, ExampleUI, Subgraph } from "./views"
+import { Hints, ExampleUI, Properties, Subgraph } from "./views"
 import { useThemeSwitcher } from "react-css-theme-switcher";
 import { INFURA_ID, DAI_ADDRESS, DAI_ABI, NETWORK, NETWORKS } from "./constants";
 /*
@@ -131,6 +131,8 @@ function App(props) {
   console.log("🏷 Resolved austingriffith.eth as:",addressFromENS)
   */
 
+  const propertyAddresses = useContractReader(readContracts, "PropertyFactory", "getPropertyAddresses");
+  console.log("Properties2:",propertyAddresses)
 
   let networkDisplay = ""
   if(localChainId && selectedChainId && localChainId != selectedChainId ){
@@ -182,7 +184,7 @@ function App(props) {
         <Button type={"primary"} onClick={()=>{
           faucetTx({
             to: address,
-            value: parseEther("1"),
+            value: parseEther("10"),
           });
           setFaucetClicked(true)
         }}>
@@ -191,6 +193,8 @@ function App(props) {
       </div>
     )
   }
+
+
 
   return (
     <div className="App">
@@ -227,7 +231,15 @@ function App(props) {
               address={address}
               blockExplorer={blockExplorer}
             />
-
+          </Route>
+          <Route exact path="/properties">
+            <Properties 
+              propertyAddresses={propertyAddresses}
+              signer={userProvider.getSigner()}
+              provider={localProvider}
+              blockExplorer={blockExplorer}
+            />
+          </Route>
             { /* Uncomment to display and interact with an external contract (DAI on mainnet):
             <Contract
               name="DAI"
@@ -238,7 +250,7 @@ function App(props) {
               blockExplorer={blockExplorer}
             />
             */ }
-          </Route>
+          
           <Route path="/hints">
             <Hints
               address={address}
@@ -249,10 +261,10 @@ function App(props) {
           </Route>
           <Route path="/subgraph">
             <Subgraph
-            subgraphUri={props.subgraphUri}
-            tx={tx}
-            writeContracts={writeContracts}
-            mainnetProvider={mainnetProvider}
+              subgraphUri={props.subgraphUri}
+              tx={tx}
+              writeContracts={writeContracts}
+              mainnetProvider={mainnetProvider}
             />
           </Route>
         </Switch>
@@ -287,22 +299,7 @@ function App(props) {
            <Col span={8} style={{ textAlign: "center", opacity: 0.8 }}>
              <GasGauge gasPrice={gasPrice} />
            </Col>
-           <Col span={8} style={{ textAlign: "center", opacity: 1 }}>
-             <Button
-               onClick={() => {
-                 window.open("https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA");
-               }}
-               size="large"
-               shape="round"
-             >
-               <span style={{ marginRight: 8 }} role="img" aria-label="support">
-                 💬
-               </span>
-               Support
-             </Button>
-           </Col>
          </Row>
-
          <Row align="middle" gutter={[4, 4]}>
            <Col span={24}>
              {
