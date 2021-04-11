@@ -25,9 +25,9 @@ import { useState, useEffect } from "react";
     tx( writeContracts.YourContract.setPurpose(newPurpose) )
 */
 
-const loadContract = (contractName, signer) => {
+export const loadContract = (contractName, signer, address) => {
   const newContract = new Contract(
-    require(`../contracts/${contractName}.address.js`),
+    address ? address : require(`../contracts/${contractName}.address.js`),
     require(`../contracts/${contractName}.abi.js`),
     signer,
   );

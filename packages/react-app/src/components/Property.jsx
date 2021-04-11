@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useContractReader } from "../hooks";
+import { loadContract } from "../hooks";
 import Contract from "./Contract";
 
 
@@ -8,11 +8,12 @@ export default function Property(props) {
   if (props.address) {
     return (
       <Contract
-        name={props.address}
+        name="Property"
         signer={props.signer}
         provider={props.localProvider}
         address={props.address}
         blockExplorer={props.blockExplorer}
+        customContract={loadContract("Property", props.signer, props.address)}
       />
     )
   }

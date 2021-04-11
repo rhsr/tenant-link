@@ -1,1 +1,1 @@
-module.exports = ["PropertyFactory"];
+module.exports = ["Property","PropertyFactory","RentalAgreement"];

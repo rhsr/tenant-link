@@ -1,25 +1,7 @@
 import { useState, useEffect } from "react";
 import usePoller from "./Poller";
 
-const DEBUG = false;
-
-/*
-  ~ What it does? ~
-
-  Enables you to read values from contracts and keep track of them in the local React states
-
-  ~ How can I use? ~
-
-  const purpose = useContractReader(readContracts,"YourContract", "purpose")
-
-  ~ Features ~
-
-  - Provide readContracts by loading contracts (see more on ContractLoader.js)
-  - Specify the name of the contract, in this case it is "YourContract"
-  - Specify the name of the variable in the contract, in this case we keep track of "purpose" variable
-*/
-
-export default function useContractReader(contracts, contractName, functionName, args, pollTime, formatter, onChange) {
+export default function useContractReader(contract, functionName, args, pollTime, formatter, onChange) {
   let adjustPollTime = 1777;
   if (pollTime) {
     adjustPollTime = pollTime;
@@ -27,6 +9,8 @@ export default function useContractReader(contracts, contractName, functionName,
     // it's okay to pass poll time as last argument without args for the call
     adjustPollTime = args;
   }
+
+  console.log(adjustPollTime);
 
   const [value, setValue] = useState();
   useEffect(() => {
@@ -36,16 +20,13 @@ export default function useContractReader(contracts, contractName, functionName,
   }, [value, onChange]);
 
   usePoller(async () => {
-    if (contracts && contracts[contractName]) {
+    if (contract) {
       try {
         let newValue;
-        if (DEBUG) console.log("CALLING ", contractName, functionName, "with args", args);
         if (args && args.length > 0) {
-          newValue = await contracts[contractName][functionName](...args);
-          if (DEBUG)
-            console.log("contractName", contractName, "functionName", functionName, "args", args, "RESULT:", newValue);
+          newValue = await contract[functionName](...args);
         } else {
-          newValue = await contracts[contractName][functionName]();
+          newValue = await contract[functionName]();
         }
         if (formatter && typeof formatter === "function") {
           newValue = formatter(newValue);
@@ -58,7 +39,7 @@ export default function useContractReader(contracts, contractName, functionName,
         console.log(e);
       }
     }
-  }, adjustPollTime, contracts && contracts[contractName]);
+  }, 99999, contract);
 
   return value;
 }
