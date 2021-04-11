@@ -80,20 +80,6 @@ module.exports = {
         mnemonic: mnemonic(),
       },
     },
-    xdai: {
-      url: 'https://rpc.xdaichain.com/',
-      gasPrice: 1000000000,
-      accounts: {
-        mnemonic: mnemonic(),
-      },
-    },
-    matic: {
-      url: 'https://rpc-mainnet.maticvigil.com/',
-      gasPrice: 1000000000,
-      accounts: {
-        mnemonic: mnemonic(),
-      },
-    },
   },
   solidity: {
     compilers: [

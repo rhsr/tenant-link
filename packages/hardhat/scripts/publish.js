@@ -6,6 +6,7 @@ const publishDir = "../react-app/src/contracts";
 const graphDir = "../subgraph"
 
 function publishContract(contractName) {
+  const hasAddress = fs.existsSync(`${bre.config.paths.artifacts}/${contractName}.address`);
   console.log(
     " 💽 Publishing",
     chalk.cyan(contractName),
@@ -16,9 +17,9 @@ function publishContract(contractName) {
     let contract = fs
       .readFileSync(`${bre.config.paths.artifacts}/contracts/${contractName}.sol/${contractName}.json`)
       .toString();
-    const address = fs
+    const address = hasAddress ? fs
       .readFileSync(`${bre.config.paths.artifacts}/${contractName}.address`)
-      .toString();
+      .toString() : "";
     contract = JSON.parse(contract);
     let graphConfigPath = `${graphDir}/config/config.json`
     let graphConfig
@@ -35,11 +36,13 @@ function publishContract(contractName) {
       }
 
     graphConfig = JSON.parse(graphConfig)
-    graphConfig[contractName + "Address"] = address
-    fs.writeFileSync(
-      `${publishDir}/${contractName}.address.js`,
-      `module.exports = "${address}";`
-    );
+    if (hasAddress) {
+      graphConfig[contractName + "Address"] = address
+      fs.writeFileSync(
+        `${publishDir}/${contractName}.address.js`,
+        `module.exports = "${address}";`
+      );
+    }
     fs.writeFileSync(
       `${publishDir}/${contractName}.abi.js`,
       `module.exports = ${JSON.stringify(contract.abi, null, 2)};`

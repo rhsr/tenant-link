@@ -2,9 +2,31 @@ pragma solidity >=0.6.0 <0.9.0;
 // SPDX-License-Identifier: MIT
 
 import 'hardhat/console.sol';
-import './Dwelling.sol';
+// import './Dwelling.sol';
 
 contract Property {
+
+  struct Dwelling {
+    address tenant;
+    string identifier; //4A, 4, N, etc
+    DwellingAttributes attributes;
+    DwellingAmenities amenities;
+  }
+
+  struct DwellingAttributes {
+    uint16 squareFeet;
+    uint8 numBedrooms;
+    uint8 numBathrooms;
+    string heatingType;
+    string coolingType;
+  }
+
+  struct DwellingAmenities {
+    bool inUnitWasher;
+    bool inUnitDryer;
+    bool petsAllowed;
+  } 
+
   enum VerificationStatus { AwaitingDocumentation, Pending, Approved, Rejected }
 
   //events, what can happen to a property
@@ -19,7 +41,7 @@ contract Property {
   string name;
   string streetAddress;
   string city;
-  string zipcode;
+  string public zipcode;
 
   uint16 numDwellings;
   mapping(uint16 => Dwelling) dwellings;
